@@ -9,9 +9,14 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -23,6 +28,7 @@ import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+
 import static android.content.ContentValues.TAG;
 
 /**
@@ -33,11 +39,13 @@ public class MainFragment extends Fragment {
     private UserService userService;
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
+    private String ppl;
 
 
     public MainFragment() {
         // Required empty public constructor
     }
+
 
 
     @Override
@@ -79,6 +87,7 @@ public class MainFragment extends Fragment {
                 t.printStackTrace();
             }
         });
+
     }
 
     public void recycler(ArrayList<User> userdata) {
@@ -86,4 +95,21 @@ public class MainFragment extends Fragment {
         UserAdapter userAdapter = new UserAdapter(userdata);
         recyclerView.setAdapter(userAdapter);
     }
+
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.refresh:
+                networkCall();
+                return true;
+        }
+        return false;
+    }
+
+
+
+
+
 }
